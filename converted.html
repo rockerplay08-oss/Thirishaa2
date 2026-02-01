@@ -1,0 +1,768 @@
+<p>
+    &lt;!doctype html&gt;
+</p>
+<p>
+    &lt;html lang="en"&gt;
+</p>
+<p>
+    &lt;head&gt;
+</p>
+<p>
+      &lt;meta charset="utf-8" /&gt;
+</p>
+<p>
+      &lt;meta name="viewport" content="width=device-width,initial-scale=1" /&gt;
+</p>
+<p>
+      &lt;title&gt;Thirishaa — Please don't leave me 😭&lt;/title&gt;
+</p>
+<p>
+      &lt;style&gt;
+</p>
+<p>
+        :root{
+</p>
+<p>
+          --card-bg: rgba(255,255,255,0.04);
+</p>
+<p>
+          --card-border: rgba(255,255,255,0.06);
+</p>
+<p>
+          --muted: #d7e9ffcc;
+</p>
+<p>
+          --accent:#ff5c9e;
+</p>
+<p>
+          --yes:#39d98a; --no:#ff6b6b;
+</p>
+<p>
+          font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+</p>
+<p>
+        }
+</p>
+<p>
+        /* Colorful animated background */
+</p>
+<p>
+        html,body{height:100%; margin:0;}
+</p>
+<p>
+        body{
+</p>
+<p>
+          min-height:100vh;
+</p>
+<p>
+          display:flex;
+</p>
+<p>
+          align-items:center;
+</p>
+<p>
+          justify-content:center;
+</p>
+<p>
+          padding:24px;
+</p>
+<p>
+          background:
+</p>
+<p>
+            radial-gradient(800px 400px at 10% 15%, rgba(255,92,158,0.18), transparent 10%),
+</p>
+<p>
+            radial-gradient(700px 350px at 90% 85%, rgba(122,211,255,0.12), transparent 12%),
+</p>
+<p>
+            linear-gradient(120deg, rgba(255,193,7,0.08), rgba(139,92,246,0.06));
+</p>
+<p>
+          position:relative;
+</p>
+<p>
+          overflow:hidden;
+</p>
+<p>
+        }
+</p>
+<p>
+        body::before{
+</p>
+<p>
+          content:'';
+</p>
+<p>
+          position:fixed;
+</p>
+<p>
+          inset:-20%;
+</p>
+<p>
+          background: conic-gradient(from 120deg, #ff5c9e, #ffb86b, #ffd166, #7ad3ff, #b089ff, #ff5c9e);
+</p>
+<p>
+          opacity:0.14;
+</p>
+<p>
+          filter: blur(36px) saturate(120%);
+</p>
+<p>
+          transform: rotate(0deg);
+</p>
+<p>
+          animation: spin 18s linear infinite;
+</p>
+<p>
+          mix-blend-mode: overlay;
+</p>
+<p>
+          pointer-events:none;
+</p>
+<p>
+          z-index:0;
+</p>
+<p>
+        }
+</p>
+<p>
+        @keyframes spin{ to { transform: rotate(360deg); } }
+</p>
+<p>
+        .float { position:fixed; border-radius:50%; filter: blur(18px); opacity:0.12; pointer-events:none; animation: floaty 8s ease-in-out infinite alternate; z-index:0; }
+</p>
+<p>
+        .float.a{ width:420px; height:420px; left:-6%; top:6%; background:linear-gradient(135deg,#ff5c9e,#ff8ab8); animation-duration:12s; }
+</p>
+<p>
+        .float.b{ width:360px; height:360px; right:-10%; bottom:-6%; background:linear-gradient(135deg,#7ad3ff,#4db9ff); animation-duration:14s; }
+</p>
+<p>
+        .float.c{ width:260px; height:260px; left:20%; bottom:-8%; background:linear-gradient(135deg,#ffd166,#ffb86b); animation-duration:10s; }
+</p>
+<p>
+        @keyframes floaty{ from { transform: translateY(0) rotate(0deg) } to { transform: translateY(-26px) rotate(8deg) } }
+</p>
+<p>
+        .wrap{ z-index:1; width:100%; max-width:760px; display:flex; align-items:center; justify-content:center; }
+</p>
+<p>
+        .card{ width:100%; border-radius:18px; padding:28px; position:relative; z-index:2; background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015)); border: 1px solid var(--card-border); box-shadow: 0 30px 80px rgba(2,6,23,0.6); backdrop-filter: blur(6px) saturate(110%); }
+</p>
+<p>
+        .title{display:flex; gap:16px; align-items:center}
+</p>
+<p>
+        .badge{ width:72px; height:72px; border-radius:14px; display:grid; place-items:center; font-size:36px; background:linear-gradient(135deg,var(--accent),#ff8db1); box-shadow:0 12px 40px rgba(255,92,158,0.15) }
+</p>
+<p>
+        h1{margin:0;font-size:22px; color: #fff9}
+</p>
+<p>
+        p.lead{margin:6px 0 0;color:var(--muted)}
+</p>
+<p>
+        .question{ margin-top:18px; font-size:18px; display:flex; align-items:center; gap:12px; color:#fff8 }
+</p>
+<p>
+        .buttons{ margin-top:20px; display:block; align-items:center; position:relative; height:72px; }
+</p>
+<p>
+        .opt{ position:absolute; padding:12px 22px; border-radius:14px; border:0; cursor:pointer; font-weight:800; color:white; min-width:130px; font-size:16px; box-shadow:0 14px 30px rgba(2,6,23,0.45); transition:transform .18s ease, box-shadow .18s ease; user-select:none; touch-action:manipulation; }
+</p>
+<p>
+        .yes{ background:linear-gradient(90deg,var(--yes),#29c07a); left:20px; top:16px; }
+</p>
+<p>
+        .no{ background:linear-gradient(90deg,var(--no),#ff7b7b); top:16px; }
+</p>
+<p>
+        .result{ margin-top:18px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,0.02); display:none; align-items:center; gap:12px; color:#fff; }
+</p>
+<p>
+        .result.show{display:flex}
+</p>
+<p>
+        .small{font-size:13px;color:var(--muted)}
+</p>
+<p>
+        .heart{ width:44px;height:44px;border-radius:12px;display:grid;place-items:center; background:linear-gradient(135deg,var(--accent),#ff8ab8); font-size:20px; color:white; box-shadow: 0 12px 34px rgba(255,92,158,0.12) }
+</p>
+<p>
+        #confettiCanvas{ position:fixed; left:0; top:0; pointer-events:none; z-index:5 }
+</p>
+<p>
+        .happyOverlay{ position:fixed; inset:0; display:none; place-items:center; z-index:20; background: linear-gradient(180deg, rgba(2,6,23,0.45), rgba(2,6,23,0.65)); backdrop-filter: blur(8px); padding:24px; }
+</p>
+<p>
+        .happyCard{ background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border-radius:18px; padding:28px; max-width:720px; text-align:center; border:1px solid rgba(255,255,255,0.04); box-shadow:0 30px 80px rgba(2,6,23,0.7); transform:translateY(12px) scale(.98); opacity:0; }
+</p>
+<p>
+        .happyOverlay.show{ display:grid; }
+</p>
+<p>
+        .happyCard.show{ animation:pop .48s cubic-bezier(.2,.9,.3,1) forwards; }
+</p>
+<p>
+        @keyframes pop { to { transform: translateY(0) scale(1); opacity:1; } }
+</p>
+<p>
+        .happyTitle{ font-size:28px; margin:0 0 8px; color:#fff; }
+</p>
+<p>
+        .happyText{ color:#dfefff; margin:8px 0 18px; font-size:16px; white-space:pre-wrap; }
+</p>
+<p>
+        .happyAction{ display:flex; gap:10px; justify-content:center; margin-top:12px; flex-wrap:wrap }
+</p>
+<p>
+        .btn{ padding:10px 16px; border-radius:10px; border:0; cursor:pointer; font-weight:700; color:white }
+</p>
+<p>
+        .btn.share{ background:linear-gradient(90deg,#7ad3ff,#4db9ff) }
+</p>
+<p>
+        .btn.close{ background:linear-gradient(90deg,#ffd166,#ffb86b); color:#08202b }
+</p>
+<p>
+        @media(max-width:720px){
+</p>
+<p>
+          .card{ padding:20px } .opt{ min-width:110px; font-size:15px } .happyTitle{ font-size:22px }
+</p>
+<p>
+        }
+</p>
+<p>
+      &lt;/style&gt;
+</p>
+<p>
+    &lt;/head&gt;
+</p>
+<p>
+    &lt;body&gt;
+</p>
+<p>
+      &lt;div class="float a" aria-hidden&gt;&lt;/div&gt;
+</p>
+<p>
+      &lt;div class="float b" aria-hidden&gt;&lt;/div&gt;
+</p>
+<p>
+      &lt;div class="float c" aria-hidden&gt;&lt;/div&gt;
+</p>
+<p>
+      &lt;div class="wrap" role="main" aria-labelledby="q"&gt;
+</p>
+<p>
+        &lt;div class="card"&gt;
+</p>
+<p>
+          &lt;div class="title"&gt;
+</p>
+<p>
+            &lt;div class="badge" aria-hidden&gt;💌&lt;/div&gt;
+</p>
+<p>
+            &lt;div&gt;
+</p>
+<p>
+              &lt;h1 id="q"&gt;Thirishaa — please don't leave me 😭&lt;/h1&gt;
+</p>
+<p>
+              &lt;p class="lead"&gt;This is for you. Please choose: Yes or No&lt;/p&gt;
+</p>
+<p>
+            &lt;/div&gt;
+</p>
+<p>
+          &lt;/div&gt;
+</p>
+<p>
+          &lt;div class="question"&gt;
+</p>
+<p>
+            &lt;div class="small"&gt;Will you stay with me?&lt;/div&gt;
+</p>
+<p>
+          &lt;/div&gt;
+</p>
+<p>
+          &lt;div class="buttons" id="buttons"&gt;
+</p>
+<p>
+            &lt;button class="opt yes" id="yesBtn" aria-label="Yes"&gt;Yes&lt;/button&gt;
+</p>
+<p>
+            &lt;button class="opt no" id="noBtn" aria-label="No"&gt;No&lt;/button&gt;
+</p>
+<p>
+          &lt;/div&gt;
+</p>
+<p>
+          &lt;div class="result" id="result" aria-live="polite"&gt;
+</p>
+<p>
+            &lt;div class="heart" id="resultIcon"&gt;💖&lt;/div&gt;
+</p>
+<p>
+            &lt;div&gt;
+</p>
+<p>
+              &lt;div id="resultText" style="font-weight:700"&gt;&lt;/div&gt;
+</p>
+<p>
+              &lt;div class="small" id="resultSub"&gt;&lt;/div&gt;
+</p>
+<p>
+            &lt;/div&gt;
+</p>
+<p>
+          &lt;/div&gt;
+</p>
+<p>
+          &lt;p class="small" style="margin-top:14px; color:var(--muted)"&gt;Tip: Try to click "No" — it moves away 😉&lt;/p&gt;
+</p>
+<p>
+        &lt;/div&gt;
+</p>
+<p>
+      &lt;/div&gt;
+</p>
+<p>
+      &lt;div id="happy" class="happyOverlay" role="dialog" aria-modal="true" aria-hidden="true"&gt;
+</p>
+<p>
+        &lt;div class="happyCard" id="happyCard" role="document" aria-labelledby="happyTitle"&gt;
+</p>
+<p>
+          &lt;h2 class="happyTitle" id="happyTitle"&gt;Yay — She said YES! 🎉&lt;/h2&gt;
+</p>
+<p>
+          &lt;p class="happyText" id="happyText"&gt;thirishaa i need uu
+</p>
+<p>
+    i loveee uuu
+</p>
+<p>
+    and unblock me plsss&lt;/p&gt;
+</p>
+<p>
+          &lt;div class="happyAction"&gt;
+</p>
+<p>
+            &lt;button class="btn share" id="shareBtn"&gt;Share this joy&lt;/button&gt;
+</p>
+<p>
+            &lt;button class="btn close" id="closeHappy"&gt;Close&lt;/button&gt;
+</p>
+<p>
+          &lt;/div&gt;
+</p>
+<p>
+        &lt;/div&gt;
+</p>
+<p>
+      &lt;/div&gt;
+</p>
+<p>
+      &lt;canvas id="confettiCanvas" aria-hidden="true"&gt;&lt;/canvas&gt;
+</p>
+<p>
+      &lt;script&gt;
+</p>
+<p>
+        const yesBtn = document.getElementById('yesBtn');
+</p>
+<p>
+        const noBtn = document.getElementById('noBtn');
+</p>
+<p>
+        const buttons = document.getElementById('buttons');
+</p>
+<p>
+        const result = document.getElementById('result');
+</p>
+<p>
+        const resultText = document.getElementById('resultText');
+</p>
+<p>
+        const resultSub = document.getElementById('resultSub');
+</p>
+<p>
+        const happy = document.getElementById('happy');
+</p>
+<p>
+        const happyCard = document.getElementById('happyCard');
+</p>
+<p>
+        const shareBtn = document.getElementById('shareBtn');
+</p>
+<p>
+        const closeHappy = document.getElementById('closeHappy');
+</p>
+<p>
+        const canvas = document.getElementById('confettiCanvas');
+</p>
+<p>
+        const ctx = canvas.getContext('2d');
+</p>
+<p>
+        function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+</p>
+<p>
+        window.addEventListener('resize', resizeCanvas);
+</p>
+<p>
+        resizeCanvas();
+</p>
+<p>
+        function rand(min,max){ return Math.random()*(max-min)+min; }
+</p>
+<p>
+        let confettiParticles = [];
+</p>
+<p>
+        function spawnConfetti(x,y,count=40){
+</p>
+<p>
+          for(let i=0;i&lt;count;i++){
+</p>
+<p>
+            confettiParticles.push({
+</p>
+<p>
+              x: x + rand(-20,20), y: y + rand(-20,20),
+</p>
+<p>
+              vx: rand(-6,6), vy: rand(-10,-4),
+</p>
+<p>
+              size: rand(6,12),
+</p>
+<p>
+              color: ['#ff5c9e','#ffd166','#39d98a','#7ad3ff','#b089ff'][Math.floor(rand(0,5))],
+</p>
+<p>
+              rot: rand(0,360), drag: 0.98, life: rand(60,120)
+</p>
+<p>
+            });
+</p>
+<p>
+          }
+</p>
+<p>
+        }
+</p>
+<p>
+        function drawConfetti(){
+</p>
+<p>
+          ctx.clearRect(0,0,canvas.width,canvas.height);
+</p>
+<p>
+          for(let i=confettiParticles.length-1;i&gt;=0;i--){
+</p>
+<p>
+            const p = confettiParticles[i];
+</p>
+<p>
+            p.vy += 0.3; p.vx *= p.drag; p.x += p.vx; p.y += p.vy; p.rot += 6; p.life--;
+</p>
+<p>
+            ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot * Math.PI/180);
+</p>
+<p>
+            ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+</p>
+<p>
+            ctx.restore();
+</p>
+<p>
+            if(p.y &gt; canvas.height + 100 || p.x &lt; -100 || p.x &gt; canvas.width + 100 || p.life &lt;= 0){
+</p>
+<p>
+              confettiParticles.splice(i,1);
+</p>
+<p>
+            }
+</p>
+<p>
+          }
+</p>
+<p>
+          requestAnimationFrame(drawConfetti);
+</p>
+<p>
+        }
+</p>
+<p>
+        drawConfetti();
+</p>
+<p>
+        function playChime(){
+</p>
+<p>
+          try{
+</p>
+<p>
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+</p>
+<p>
+            const now = audioCtx.currentTime;
+</p>
+<p>
+            const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+</p>
+<p>
+            o.type = 'sine';
+</p>
+<p>
+            o.frequency.setValueAtTime(520, now);
+</p>
+<p>
+            o.frequency.exponentialRampToValueAtTime(720, now+0.18);
+</p>
+<p>
+            g.gain.setValueAtTime(0.001, now);
+</p>
+<p>
+            g.gain.exponentialRampToValueAtTime(0.25, now+0.02);
+</p>
+<p>
+            g.gain.exponentialRampToValueAtTime(0.001, now+0.45);
+</p>
+<p>
+            o.connect(g); g.connect(audioCtx.destination); o.start(now); o.stop(now+0.5);
+</p>
+<p>
+          }catch(e){}
+</p>
+<p>
+        }
+</p>
+<p>
+        function ensureAbsolutePositioning(){
+</p>
+<p>
+          const bRect = buttons.getBoundingClientRect();
+</p>
+<p>
+          if (bRect.height &lt; 72) buttons.style.height = '72px';
+</p>
+<p>
+          yesBtn.style.position = 'absolute'; yesBtn.style.left = '20px'; yesBtn.style.top = '16px';
+</p>
+<p>
+          noBtn.style.position = 'absolute';
+</p>
+<p>
+          const containerWidth = buttons.clientWidth;
+</p>
+<p>
+          const noW = Math.max(110, noBtn.offsetWidth);
+</p>
+<p>
+          const startX = Math.max(containerWidth - noW - 20, (containerWidth/2));
+</p>
+<p>
+          noBtn.style.left = startX + 'px'; noBtn.style.top = '16px';
+</p>
+<p>
+        }
+</p>
+<p>
+        ensureAbsolutePositioning();
+</p>
+<p>
+        window.addEventListener('resize', ensureAbsolutePositioning);
+</p>
+<p>
+        let moveCount = 0;
+</p>
+<p>
+        function moveNo() {
+</p>
+<p>
+          const btnW = noBtn.offsetWidth, btnH = noBtn.offsetHeight, padding = 8;
+</p>
+<p>
+          const areaW = Math.max(0, buttons.clientWidth - btnW - padding*2);
+</p>
+<p>
+          const areaH = Math.max(0, buttons.clientHeight - btnH - padding*2);
+</p>
+<p>
+          moveCount++; const inertia = Math.min(moveCount, 8);
+</p>
+<p>
+          const tx = padding + Math.random() * areaW;
+</p>
+<p>
+          const ty = padding + Math.random() * areaH;
+</p>
+<p>
+          const duration = Math.max(140, 300 - inertia*22);
+</p>
+<p>
+          noBtn.animate([
+</p>
+<p>
+            { transform: getComputedStyle(noBtn).transform || 'translate(0,0)' },
+</p>
+<p>
+            { transform: `translate(${tx - (noBtn.offsetLeft)}px, ${ty - (noBtn.offsetTop)}px)` }
+</p>
+<p>
+          ], { duration, easing: 'cubic-bezier(.2,.9,.3,1)' });
+</p>
+<p>
+          setTimeout(()=&gt; { noBtn.style.left = tx + 'px'; noBtn.style.top = ty + 'px';
+</p>
+<p>
+            noBtn.animate([{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:220}); }, duration);
+</p>
+<p>
+        }
+</p>
+<p>
+        noBtn.addEventListener('click', (e)=&gt;{ e.preventDefault(); e.stopPropagation(); moveNo(); });
+</p>
+<p>
+        noBtn.addEventListener('mousedown', (e)=&gt;{ e.preventDefault(); moveNo(); });
+</p>
+<p>
+        noBtn.addEventListener('touchstart', (e)=&gt;{ e.preventDefault(); moveNo(); }, {passive:false});
+</p>
+<p>
+        document.addEventListener('keydown', (e)=&gt;{ if (e.key==='n'||e.key==='N'){ e.preventDefault(); moveNo(); } if (e.key==='y'||e.key==='Y') yesBtn.click(); });
+</p>
+<p>
+        yesBtn.addEventListener('click', ()=&gt;{
+</p>
+<p>
+          result.classList.add('show');
+</p>
+<p>
+          resultText.textContent = "She said YES! 💖";
+</p>
+<p>
+          resultSub.textContent = "Celebration time — breathe, smile, and hug her (or send this page).";
+</p>
+<p>
+          const rect = yesBtn.getBoundingClientRect();
+</p>
+<p>
+          spawnConfetti(rect.left + rect.width/2, rect.top + rect.height/2, 110);
+</p>
+<p>
+          playChime();
+</p>
+<p>
+          yesBtn.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}], {duration:700, easing:'ease-out'});
+</p>
+<p>
+          happy.classList.add('show'); happy.setAttribute('aria-hidden','false');
+</p>
+<p>
+          setTimeout(()=&gt; happyCard.classList.add('show'), 40);
+</p>
+<p>
+        });
+</p>
+<p>
+        closeHappy.addEventListener('click', ()=&gt; {
+</p>
+<p>
+          happyCard.classList.remove('show');
+</p>
+<p>
+          setTimeout(()=&gt; { happy.classList.remove('show'); happy.setAttribute('aria-hidden','true'); }, 240);
+</p>
+<p>
+        });
+</p>
+<p>
+        shareBtn.addEventListener('click', async () =&gt; {
+</p>
+<p>
+          const shareText = "Thirishaa said YES! ❤️";
+</p>
+<p>
+          if (navigator.share) {
+</p>
+<p>
+            try { await navigator.share({ title: 'She said YES!', text: shareText, url: location.href }); return; }
+</p>
+<p>
+            catch(e){}
+</p>
+<p>
+          }
+</p>
+<p>
+          try {
+</p>
+<p>
+            await navigator.clipboard.writeText(`${shareText} — ${location.href}`);
+</p>
+<p>
+            shareBtn.textContent = 'Copied ✓';
+</p>
+<p>
+            setTimeout(()=&gt; shareBtn.textContent = 'Share this joy', 1500);
+</p>
+<p>
+          } catch(e){
+</p>
+<p>
+            alert(`${shareText}\n\nLink: ${location.href}`);
+</p>
+<p>
+          }
+</p>
+<p>
+        });
+</p>
+<p>
+        setInterval(()=&gt;{
+</p>
+<p>
+          document.querySelectorAll('.badge, .heart').forEach(el=&gt;{
+</p>
+<p>
+            el.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:2500, easing:'ease-in-out'});
+</p>
+<p>
+          });
+</p>
+<p>
+        },3500);
+</p>
+<p>
+        document.addEventListener('keydown', (e)=&gt;{
+</p>
+<p>
+          if (e.key === 'Escape' &amp;&amp; happy.classList.contains('show')) {
+</p>
+<p>
+            closeHappy.click();
+</p>
+<p>
+          }
+</p>
+<p>
+        });
+</p>
+<p>
+      &lt;/script&gt;
+</p>
+<p>
+    &lt;/body&gt;
+</p>
+<p>
+    &lt;/html&gt;
+</p>
