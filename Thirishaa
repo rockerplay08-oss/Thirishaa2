@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thirishaa — Please don't leave me 😭</title>
+  <style>
+    :root{
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.06);
+      --muted: #d7e9ffcc;
+      --accent:#ff5c9e;
+      --yes:#39d98a; --no:#ff6b6b;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* Colorful animated background */
+    html,body{height:100%; margin:0;}
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:
+        radial-gradient(800px 400px at 10% 15%, rgba(255,92,158,0.18), transparent 10%),
+        radial-gradient(700px 350px at 90% 85%, rgba(122,211,255,0.12), transparent 12%),
+        linear-gradient(120deg, rgba(255,193,7,0.08), rgba(139,92,246,0.06));
+      position:relative;
+      overflow:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      inset:-20%;
+      background: conic-gradient(from 120deg, #ff5c9e, #ffb86b, #ffd166, #7ad3ff, #b089ff, #ff5c9e);
+      opacity:0.14;
+      filter: blur(36px) saturate(120%);
+      transform: rotate(0deg);
+      animation: spin 18s linear infinite;
+      mix-blend-mode: overlay;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes spin{ to { transform: rotate(360deg); } }
+
+    .float { position:fixed; border-radius:50%; filter: blur(18px); opacity:0.12; pointer-events:none; animation: floaty 8s ease-in-out infinite alternate; z-index:0; }
+    .float.a{ width:420px; height:420px; left:-6%; top:6%; background:linear-gradient(135deg,#ff5c9e,#ff8ab8); animation-duration:12s; }
+    .float.b{ width:360px; height:360px; right:-10%; bottom:-6%; background:linear-gradient(135deg,#7ad3ff,#4db9ff); animation-duration:14s; }
+    .float.c{ width:260px; height:260px; left:20%; bottom:-8%; background:linear-gradient(135deg,#ffd166,#ffb86b); animation-duration:10s; }
+    @keyframes floaty{ from { transform: translateY(0) rotate(0deg) } to { transform: translateY(-26px) rotate(8deg) } }
+
+    .wrap{ z-index:1; width:100%; max-width:760px; display:flex; align-items:center; justify-content:center; }
+    .card{ width:100%; border-radius:18px; padding:28px; position:relative; z-index:2; background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.015)); border: 1px solid var(--card-border); box-shadow: 0 30px 80px rgba(2,6,23,0.6); backdrop-filter: blur(6px) saturate(110%); }
+
+    .title{display:flex; gap:16px; align-items:center}
+    .badge{ width:72px; height:72px; border-radius:14px; display:grid; place-items:center; font-size:36px; background:linear-gradient(135deg,var(--accent),#ff8db1); box-shadow:0 12px 40px rgba(255,92,158,0.15) }
+    h1{margin:0;font-size:22px; color: #fff9}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+    .question{ margin-top:18px; font-size:18px; display:flex; align-items:center; gap:12px; color:#fff8 }
+
+    .buttons{ margin-top:20px; display:block; align-items:center; position:relative; height:72px; }
+    .opt{ position:absolute; padding:12px 22px; border-radius:14px; border:0; cursor:pointer; font-weight:800; color:white; min-width:130px; font-size:16px; box-shadow:0 14px 30px rgba(2,6,23,0.45); transition:transform .18s ease, box-shadow .18s ease; user-select:none; touch-action:manipulation; }
+    .yes{ background:linear-gradient(90deg,var(--yes),#29c07a); left:20px; top:16px; }
+    .no{ background:linear-gradient(90deg,var(--no),#ff7b7b); top:16px; }
+
+    .result{ margin-top:18px; padding:12px 14px; border-radius:12px; background:rgba(255,255,255,0.02); display:none; align-items:center; gap:12px; color:#fff; }
+    .result.show{display:flex}
+    .small{font-size:13px;color:var(--muted)}
+    .heart{ width:44px;height:44px;border-radius:12px;display:grid;place-items:center; background:linear-gradient(135deg,var(--accent),#ff8ab8); font-size:20px; color:white; box-shadow: 0 12px 34px rgba(255,92,158,0.12) }
+
+    #confettiCanvas{ position:fixed; left:0; top:0; pointer-events:none; z-index:5 }
+
+    .happyOverlay{ position:fixed; inset:0; display:none; place-items:center; z-index:20; background: linear-gradient(180deg, rgba(2,6,23,0.45), rgba(2,6,23,0.65)); backdrop-filter: blur(8px); padding:24px; }
+    .happyCard{ background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border-radius:18px; padding:28px; max-width:720px; text-align:center; border:1px solid rgba(255,255,255,0.04); box-shadow:0 30px 80px rgba(2,6,23,0.7); transform:translateY(12px) scale(.98); opacity:0; }
+    .happyOverlay.show{ display:grid; }
+    .happyCard.show{ animation:pop .48s cubic-bezier(.2,.9,.3,1) forwards; }
+    @keyframes pop { to { transform: translateY(0) scale(1); opacity:1; } }
+    .happyTitle{ font-size:28px; margin:0 0 8px; color:#fff; }
+    .happyText{ color:#dfefff; margin:8px 0 18px; font-size:16px; white-space:pre-wrap; }
+    .happyAction{ display:flex; gap:10px; justify-content:center; margin-top:12px; flex-wrap:wrap }
+    .btn{ padding:10px 16px; border-radius:10px; border:0; cursor:pointer; font-weight:700; color:white }
+    .btn.share{ background:linear-gradient(90deg,#7ad3ff,#4db9ff) }
+    .btn.close{ background:linear-gradient(90deg,#ffd166,#ffb86b); color:#08202b }
+
+    @media(max-width:720px){
+      .card{ padding:20px } .opt{ min-width:110px; font-size:15px } .happyTitle{ font-size:22px }
+    }
+  </style>
+</head>
+<body>
+  <div class="float a" aria-hidden></div>
+  <div class="float b" aria-hidden></div>
+  <div class="float c" aria-hidden></div>
+
+  <div class="wrap" role="main" aria-labelledby="q">
+    <div class="card">
+      <div class="title">
+        <div class="badge" aria-hidden>💌</div>
+        <div>
+          <h1 id="q">Thirishaa — please don't leave me 😭</h1>
+          <p class="lead">This is for you. Please choose: Yes or No</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="small">Will you stay with me?</div>
+      </div>
+
+      <div class="buttons" id="buttons">
+        <button class="opt yes" id="yesBtn" aria-label="Yes">Yes</button>
+        <button class="opt no" id="noBtn" aria-label="No">No</button>
+      </div>
+
+      <div class="result" id="result" aria-live="polite">
+        <div class="heart" id="resultIcon">💖</div>
+        <div>
+          <div id="resultText" style="font-weight:700"></div>
+          <div class="small" id="resultSub"></div>
+        </div>
+      </div>
+
+      <p class="small" style="margin-top:14px; color:var(--muted)">Tip: Try to click "No" — it moves away 😉</p>
+    </div>
+  </div>
+
+  <div id="happy" class="happyOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="happyCard" id="happyCard" role="document" aria-labelledby="happyTitle">
+      <h2 class="happyTitle" id="happyTitle">Yay — She said YES! 🎉</h2>
+      <p class="happyText" id="happyText">thirishaa i need uu
+i loveee uuu
+and unblock me plsss</p>
+      <div class="happyAction">
+        <button class="btn share" id="shareBtn">Share this joy</button>
+        <button class="btn close" id="closeHappy">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const buttons = document.getElementById('buttons');
+    const result = document.getElementById('result');
+    const resultText = document.getElementById('resultText');
+    const resultSub = document.getElementById('resultSub');
+
+    const happy = document.getElementById('happy');
+    const happyCard = document.getElementById('happyCard');
+    const shareBtn = document.getElementById('shareBtn');
+    const closeHappy = document.getElementById('closeHappy');
+
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+    let confettiParticles = [];
+    function spawnConfetti(x,y,count=40){
+      for(let i=0;i<count;i++){
+        confettiParticles.push({
+          x: x + rand(-20,20), y: y + rand(-20,20),
+          vx: rand(-6,6), vy: rand(-10,-4),
+          size: rand(6,12),
+          color: ['#ff5c9e','#ffd166','#39d98a','#7ad3ff','#b089ff'][Math.floor(rand(0,5))],
+          rot: rand(0,360), drag: 0.98, life: rand(60,120)
+        });
+      }
+    }
+    function drawConfetti(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=confettiParticles.length-1;i>=0;i--){
+        const p = confettiParticles[i];
+        p.vy += 0.3; p.vx *= p.drag; p.x += p.vx; p.y += p.vy; p.rot += 6; p.life--;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot * Math.PI/180);
+        ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+        ctx.restore();
+        if(p.y > canvas.height + 100 || p.x < -100 || p.x > canvas.width + 100 || p.life <= 0){
+          confettiParticles.splice(i,1);
+        }
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+    drawConfetti();
+
+    function playChime(){
+      try{
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioCtx.currentTime;
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(520, now);
+        o.frequency.exponentialRampToValueAtTime(720, now+0.18);
+        g.gain.setValueAtTime(0.001, now);
+        g.gain.exponentialRampToValueAtTime(0.25, now+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, now+0.45);
+        o.connect(g); g.connect(audioCtx.destination); o.start(now); o.stop(now+0.5);
+      }catch(e){}
+    }
+
+    function ensureAbsolutePositioning(){
+      const bRect = buttons.getBoundingClientRect();
+      if (bRect.height < 72) buttons.style.height = '72px';
+      yesBtn.style.position = 'absolute'; yesBtn.style.left = '20px'; yesBtn.style.top = '16px';
+      noBtn.style.position = 'absolute';
+      const containerWidth = buttons.clientWidth;
+      const noW = Math.max(110, noBtn.offsetWidth);
+      const startX = Math.max(containerWidth - noW - 20, (containerWidth/2));
+      noBtn.style.left = startX + 'px'; noBtn.style.top = '16px';
+    }
+    ensureAbsolutePositioning();
+    window.addEventListener('resize', ensureAbsolutePositioning);
+
+    let moveCount = 0;
+    function moveNo() {
+      const btnW = noBtn.offsetWidth, btnH = noBtn.offsetHeight, padding = 8;
+      const areaW = Math.max(0, buttons.clientWidth - btnW - padding*2);
+      const areaH = Math.max(0, buttons.clientHeight - btnH - padding*2);
+      moveCount++; const inertia = Math.min(moveCount, 8);
+      const tx = padding + Math.random() * areaW;
+      const ty = padding + Math.random() * areaH;
+      const duration = Math.max(140, 300 - inertia*22);
+      noBtn.animate([
+        { transform: getComputedStyle(noBtn).transform || 'translate(0,0)' },
+        { transform: `translate(${tx - (noBtn.offsetLeft)}px, ${ty - (noBtn.offsetTop)}px)` }
+      ], { duration, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      setTimeout(()=> { noBtn.style.left = tx + 'px'; noBtn.style.top = ty + 'px';
+        noBtn.animate([{transform:'scale(1.02)'},{transform:'scale(1)'}],{duration:220}); }, duration);
+    }
+    noBtn.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); moveNo(); });
+    noBtn.addEventListener('mousedown', (e)=>{ e.preventDefault(); moveNo(); });
+    noBtn.addEventListener('touchstart', (e)=>{ e.preventDefault(); moveNo(); }, {passive:false});
+    document.addEventListener('keydown', (e)=>{ if (e.key==='n'||e.key==='N'){ e.preventDefault(); moveNo(); } if (e.key==='y'||e.key==='Y') yesBtn.click(); });
+
+    yesBtn.addEventListener('click', ()=>{
+      result.classList.add('show');
+      resultText.textContent = "She said YES! 💖";
+      resultSub.textContent = "Celebration time — breathe, smile, and hug her (or send this page).";
+      const rect = yesBtn.getBoundingClientRect();
+      spawnConfetti(rect.left + rect.width/2, rect.top + rect.height/2, 110);
+      playChime();
+      yesBtn.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}], {duration:700, easing:'ease-out'});
+      happy.classList.add('show'); happy.setAttribute('aria-hidden','false');
+      setTimeout(()=> happyCard.classList.add('show'), 40);
+    });
+
+    closeHappy.addEventListener('click', ()=> {
+      happyCard.classList.remove('show');
+      setTimeout(()=> { happy.classList.remove('show'); happy.setAttribute('aria-hidden','true'); }, 240);
+    });
+
+    shareBtn.addEventListener('click', async () => {
+      const shareText = "Thirishaa said YES! ❤️";
+      if (navigator.share) {
+        try { await navigator.share({ title: 'She said YES!', text: shareText, url: location.href }); return; }
+        catch(e){}
+      }
+      try {
+        await navigator.clipboard.writeText(`${shareText} — ${location.href}`);
+        shareBtn.textContent = 'Copied ✓';
+        setTimeout(()=> shareBtn.textContent = 'Share this joy', 1500);
+      } catch(e){
+        alert(`${shareText}\n\nLink: ${location.href}`);
+      }
+    });
+
+    setInterval(()=>{
+      document.querySelectorAll('.badge, .heart').forEach(el=>{
+        el.animate([{transform:'scale(1)'},{transform:'scale(1.04)'},{transform:'scale(1)'}], {duration:2500, easing:'ease-in-out'});
+      });
+    },3500);
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && happy.classList.contains('show')) {
+        closeHappy.click();
+      }
+    });
+  </script>
+</body>
+</html>
